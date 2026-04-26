@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The attention mechanism and the Transformer architecture — the foundation of virtually all modern AI systems.">
+    <title>4. Attention &amp; the Transformer — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 4</div>
+    <h1>Attention &amp; the Transformer</h1>
+
+    <p>The Seq2Seq bottleneck was not just an implementation limitation — it was a structural one. Compressing an entire input into a single fixed-size vector before generating any output means the decoder has no direct access to early parts of the input when generating late parts of the output. In translation, words at the beginning of a long source sentence may be most relevant when generating the first word of the output, but the decoder has only the compressed summary of the entire source to work with. Bahdanau, Cho, and Bengio's attention mechanism (2015) resolved this by giving the decoder direct access to all encoder hidden states at every decoding step. Rather than attending to a single context vector, the decoder computes a weighted average over all encoder states, where the weights are learned and conditioned on the current decoder state. The model learns to align — to attend more strongly to the parts of the input most relevant to the current output position. Tested on machine translation, attention produced substantial improvements, particularly on long sentences.</p>
+
+    <p>Attention was initially an augmentation to an RNN-based architecture. The RNN processed tokens sequentially, which prevented parallelization: the hidden state at position t depended on the hidden state at position t−1. This made training on long sequences slow and made it difficult to learn dependencies between positions far apart in a sequence, since information had to propagate through many intermediate steps. Vaswani et al.'s "Attention Is All You Need" (2017) posed a structural question: if attention does most of the useful work, why keep the recurrence at all?</p>
+
+    <p>The Transformer eliminates recurrence entirely. In its place, self-attention: each position in the sequence attends to every other position in a single operation, producing a new representation that incorporates global context. Because every token can attend to every other token directly, dependencies between distant positions are no more difficult to learn than dependencies between adjacent ones. Positional encodings — added to the input embeddings — supply the ordering information that recurrence had previously maintained implicitly. Multi-head attention extends this by running multiple attention operations in parallel, each with different learned projections, so the model can attend to different kinds of relationships simultaneously. Stacked Transformer blocks, each containing self-attention and a feedforward network, build progressively richer representations.</p>
+
+    <p>The Transformer has no inherent assumptions about the nature of the input — no locality bias like CNNs, no sequential bias like RNNs. It treats all positions as equally accessible and learns which relationships matter from data. This generality, combined with the parallelism that made training at scale feasible, explains why the architecture spread rapidly beyond language to images, audio, proteins, code, and combinations of modalities. Virtually every AI system described in the chapters that follow is built on a Transformer or a close variant.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/1409.0473" rel="noopener noreferrer">
+                    <span class="paper-title">Neural Machine Translation by Jointly Learning to Align and Translate</span>
+                </a>
+                <span class="paper-meta">Dzmitry Bahdanau, Kyunghyun Cho, Yoshua Bengio — ICLR 2015 — arXiv:1409.0473</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/1706.03762" rel="noopener noreferrer">
+                    <span class="paper-title">Attention Is All You Need</span>
+                </a>
+                <span class="paper-meta">Ashish Vaswani, Noam Shazeer, Niki Parmar, et al. — NeurIPS 2017 — arXiv:1706.03762</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="03-word-representations.html">← Chapter 3: Learning Meaning from Text</a>
+        <a href="05-pretraining.html">Chapter 5: Pre-training &amp; Fine-tuning →</a>
+    </nav>
+
+</div>
+</body>
+</html>

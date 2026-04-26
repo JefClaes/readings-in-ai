@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chain-of-Thought and ReAct — the prompting techniques and reasoning-action loops at the foundation of modern AI agents.">
+    <title>9. Agentic AI — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 9</div>
+    <h1>Agentic AI</h1>
+
+    <p>A language model takes a context and produces a continuation. To use this as a reasoning system — something that can solve multi-step problems reliably — requires more than a capable model. It requires prompting strategies that elicit structured reasoning rather than direct pattern completion. Wei et al.'s chain-of-thought prompting (2022) demonstrated that prompting a model to produce intermediate reasoning steps before a final answer substantially improved performance on tasks requiring multi-step reasoning: arithmetic word problems, commonsense reasoning, symbolic manipulation. The improvement was not available through fine-tuning on additional examples alone — it required the model to externalize its reasoning process as text. Critically, chain-of-thought prompting produced gains primarily in models above approximately 100 billion parameters. Smaller models did not reliably benefit, suggesting that the capacity for explicit intermediate reasoning is an emergent capability dependent on scale. The finding implied that large language models have latent reasoning ability that is accessible through the structure of the prompt rather than through the model's weights alone.</p>
+
+    <p>Chain-of-thought addresses the quality of reasoning but not the scope: a model that reasons well about what to do still cannot do anything. Its context is static — it contains only what was provided at the start. Yao et al.'s ReAct (2023) extended the chain-of-thought pattern with actions. Rather than generating a complete reasoning trace followed by a final answer, a ReAct agent interleaves reasoning steps and actions within a single generation: a "thought" — a natural language reasoning step — followed by an "action" (a search query, a lookup, a code execution), an observation of the result, then another thought, and so on. The agent's reasoning is grounded in external information retrieved during the task rather than relying entirely on information stored in the model's weights. ReAct substantially outperformed both chain-of-thought-only and action-only baselines on knowledge-intensive tasks and enabled interpretable failure diagnosis: when the agent made an error, the reasoning trace showed which step went wrong.</p>
+
+    <p>Together, these two papers define the scaffold underlying modern AI agents. The pattern is: decompose the task into steps, reason about the current state, select and execute an action, observe the result, update the reasoning, and repeat. Contemporary coding assistants, research agents, and workflow automation systems are largely elaborations of this loop — extended with longer contexts, more capable tools, better base models, and infrastructure for managing state across many steps. The loop itself, and the insight that reasoning and acting should be tightly coupled rather than separated, comes from these papers.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/2201.11903" rel="noopener noreferrer">
+                    <span class="paper-title">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</span>
+                </a>
+                <span class="paper-meta">Jason Wei, Xuezhi Wang, Dale Schuurmans, et al. — NeurIPS 2022 — arXiv:2201.11903</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2210.03629" rel="noopener noreferrer">
+                    <span class="paper-title">ReAct: Synergizing Reasoning and Acting in Language Models</span>
+                </a>
+                <span class="paper-meta">Shunyu Yao, Jeffrey Zhao, Dian Yu, et al. — ICLR 2023 — arXiv:2210.03629</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="08-computer-vision.html">← Chapter 8: Computer Vision at Scale</a>
+        <span class="nav-placeholder"></span>
+    </nav>
+
+</div>
+</body>
+</html>

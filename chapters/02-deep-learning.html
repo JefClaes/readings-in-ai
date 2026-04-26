@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How AlexNet and ResNet established deep learning as the dominant approach to computer vision and machine learning.">
+    <title>2. The Deep Learning Bet — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 2</div>
+    <h1>The Deep Learning Bet</h1>
+
+    <p>By the mid-2000s, neural networks had largely been displaced in applied machine learning by methods that were more tractable with available compute: support vector machines, random forests, gradient boosting. Computer vision in particular depended on hand-crafted feature representations — SIFT, HOG, Fisher vectors — that encoded domain knowledge about edges, textures, and spatial relationships. The features were good, but they were static. They could not be improved by showing the system more data.</p>
+
+    <p>Three things converged around 2012. ImageNet provided a standardized large-scale benchmark: 1.2 million labeled images across 1000 categories, with enough variety that hand-crafted features struggled to generalize. GPU hardware made training large networks feasible — an order-of-magnitude speedup over CPU training. And a handful of architectural choices — ReLU activations to avoid vanishing gradients, dropout for regularization, local response normalization — made deep convolutional networks stable to train at scale. AlexNet entered the 2012 ImageNet challenge and reduced the top-5 error rate from 26.2% to 15.3%. No competing approach was close. The result reframed what the field was competing for.</p>
+
+    <p>Subsequent years produced rapid improvements in architecture. One persistent problem was depth: as networks grew from 8 layers toward dozens and then hundreds, accuracy initially improved but then plateaued and sometimes degraded on training data — not from overfitting but from optimization difficulty. The gradients required to update early layers became vanishingly small after passing through many layers of weights. He et al.'s ResNet (2015) diagnosed this as an optimization problem and proposed a simple fix: residual connections that add the layer's input directly to its output, so the layer learns a residual function F(x) rather than a full mapping H(x). Because the identity is learned by default, the network can easily represent shallow effective depths when depth is not beneficial. With residual connections, networks of 50, 100, or 152 layers trained stably and consistently outperformed shallower networks.</p>
+
+    <p>ResNets became the standard backbone for computer vision tasks throughout the latter half of the 2010s, and residual connections appear in some form in nearly every deep architecture that followed, including Transformers.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks" rel="noopener noreferrer">
+                    <span class="paper-title">ImageNet Classification with Deep Convolutional Neural Networks</span>
+                </a>
+                <span class="paper-meta">Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton — NeurIPS 2012</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/1512.03385" rel="noopener noreferrer">
+                    <span class="paper-title">Deep Residual Learning for Image Recognition</span>
+                </a>
+                <span class="paper-meta">Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun — CVPR 2016 — arXiv:1512.03385</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="01-perceptron-backprop.html">← Chapter 1: The Perceptron &amp; Backpropagation</a>
+        <a href="03-word-representations.html">Chapter 3: Learning Meaning from Text →</a>
+    </nav>
+
+</div>
+</body>
+</html>

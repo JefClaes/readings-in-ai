@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Word2Vec and Seq2Seq — how neural networks learned to represent language as geometry, and process it as sequences.">
+    <title>3. Learning Meaning from Text — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 3</div>
+    <h1>Learning Meaning from Text</h1>
+
+    <p>Images have a natural vector representation: pixels. Language does not. Words are discrete symbols with no inherent geometry — a one-hot encoding treats every word as equidistant from every other, discarding all semantic structure. Neural networks that reason about language need a representation in which meaning is encoded in a form the network can process, not just identify.</p>
+
+    <p>Mikolov et al.'s Word2Vec (2013) showed that useful representations could be learned from distributional statistics alone. The core idea is the distributional hypothesis: words that appear in similar contexts tend to have similar meanings. Word2Vec operationalizes this by training a shallow network on a self-supervised prediction task — either predict a word from its context (CBOW) or predict context words from a center word (Skip-gram). Neither task requires labeled data; the supervision comes from the structure of text itself. The learned word vectors encode semantic relationships geometrically: "king" minus "man" plus "woman" produces a vector close to "queen." Analogical structure that had previously required knowledge engineering emerged automatically from raw text. These dense embeddings became a standard preprocessing step in NLP, giving subsequent networks a representation in which meaning was tractable.</p>
+
+    <p>With word-level representations available, the next challenge was sequences. Language is not a bag of words; the meaning of a sentence depends on order and structure. Sutskever, Vinyals, and Le's Seq2Seq (2014) introduced an architecture for tasks that map one sequence to another — translation, summarization, dialogue. An encoder RNN reads the input token by token, maintaining a hidden state that accumulates context; after the final token, that hidden state serves as a compressed representation of the entire input. A decoder RNN then generates output tokens one at a time, conditioned on this context vector. Trained end-to-end, Seq2Seq achieved competitive machine translation results without any task-specific feature engineering.</p>
+
+    <p>The architecture also exposed a fundamental tension: the context vector must represent an input of arbitrary length in a fixed number of dimensions. A short sentence and a long paragraph are both compressed into the same vector size. Information is inevitably lost, and the loss grows with input length. This bottleneck, observed empirically in translation quality on long sentences, directly motivated the attention mechanism described in the next chapter.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/1301.3781" rel="noopener noreferrer">
+                    <span class="paper-title">Efficient Estimation of Word Representations in Vector Space</span>
+                </a>
+                <span class="paper-meta">Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean — ICLR 2013 — arXiv:1301.3781</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/1409.3215" rel="noopener noreferrer">
+                    <span class="paper-title">Sequence to Sequence Learning with Neural Networks</span>
+                </a>
+                <span class="paper-meta">Ilya Sutskever, Oriol Vinyals, Quoc V. Le — NeurIPS 2014 — arXiv:1409.3215</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="02-deep-learning.html">← Chapter 2: The Deep Learning Bet</a>
+        <a href="04-attention-transformer.html">Chapter 4: Attention &amp; the Transformer →</a>
+    </nav>
+
+</div>
+</body>
+</html>

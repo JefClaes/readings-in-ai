@@ -1,0 +1,165 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #111;
+    background: #fff;
+    padding: 2.5rem 1rem;
+}
+
+.container {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+header a {
+    text-decoration: none;
+    color: #555;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+}
+
+header a:hover { color: #111; }
+
+h1 {
+    font-size: 1.9rem;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+}
+
+h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.chapter-number {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+p { margin-bottom: 1.25rem; }
+
+a { color: #111; }
+a:hover { color: #555; }
+
+.intro { margin-bottom: 2.5rem; }
+
+/* Table of contents */
+.toc {
+    list-style: none;
+    margin-top: 0.5rem;
+}
+
+.toc li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 0.7rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1rem;
+}
+
+.toc-number {
+    color: #aaa;
+    min-width: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.toc a {
+    text-decoration: none;
+    color: #111;
+}
+
+.toc a:hover { text-decoration: underline; }
+
+/* Papers section */
+.papers {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+}
+
+.papers h2 {
+    margin-top: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    font-weight: 600;
+}
+
+.paper-list {
+    list-style: none;
+    margin-top: 1.2rem;
+}
+
+.paper-list li {
+    margin-bottom: 1.4rem;
+    padding-left: 1rem;
+    border-left: 2px solid #eee;
+}
+
+.paper-list .paper-title {
+    font-style: italic;
+}
+
+.paper-list .paper-meta {
+    display: block;
+    font-size: 0.88rem;
+    color: #666;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin-top: 0.15rem;
+}
+
+.paper-list a {
+    text-decoration: none;
+}
+
+.paper-list a:hover { text-decoration: underline; }
+
+/* Chapter navigation */
+nav.chapter-nav {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+}
+
+nav.chapter-nav a {
+    text-decoration: none;
+    color: #555;
+}
+
+nav.chapter-nav a:hover { color: #111; }
+nav.chapter-nav .nav-placeholder { display: block; }
+
+footer {
+    margin-top: 4rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+    font-size: 0.85rem;
+    color: #888;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+footer a { color: #888; }
+footer a:hover { color: #111; }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Scaling Laws, GPT-3, and Chinchilla — the quantitative foundations of large language models and what emerged from training at scale.">
+    <title>6. Scaling Laws &amp; the LLM Era — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 6</div>
+    <h1>Scaling Laws &amp; the LLM Era</h1>
+
+    <p>GPT-2 suggested that scale mattered. But the relationship between scale and capability was not understood quantitatively. Practitioners had intuitions — more parameters and more data tend to help — but no principled basis for deciding where to invest a fixed compute budget. Should you train a larger model for fewer steps, or a smaller model for more steps? How much does doubling the dataset help relative to doubling the model? Kaplan et al.'s scaling laws paper (2020) put these questions on a quantitative footing. Training language models across many orders of magnitude of parameters, data, and compute, they found that loss follows smooth power laws with respect to all three variables. The relationships were stable and predictable across the full range studied. For a fixed compute budget, the finding was that model size mattered more than training duration: the optimal strategy was to train a larger model for fewer steps rather than a smaller model to convergence.</p>
+
+    <p>GPT-3 (Brown et al., 2020) acted on the scaling hypothesis. At 175 billion parameters — 100 times the size of GPT-2 — and trained on 300 billion tokens, it was the largest language model published at the time. The scale change produced qualitative shifts. GPT-3 demonstrated strong few-shot learning: given a handful of examples of a task in the prompt, the model performed that task without any weight updates. Question answering, translation, arithmetic, code generation, and many other tasks improved substantially. In several settings, few-shot GPT-3 matched or exceeded models that had been fine-tuned on task-specific labeled data. The paper introduced the terminology of few-shot, one-shot, and zero-shot evaluation that has since become standard in the field.</p>
+
+    <p>GPT-3 also surfaced emergent capabilities — behaviors that appeared only above certain scale thresholds and could not be predicted by extrapolating from smaller models. Multi-step arithmetic, analogical reasoning, and chain-of-thought prompting (described in chapter 9) all exhibited this pattern. The existence of emergent capabilities raised a deeper question: were the scaling laws complete, or were they measuring average behavior while missing qualitative transitions?</p>
+
+    <p>A correction to the original scaling laws came from Hoffmann et al.'s Chinchilla (2022). Kaplan et al.'s analysis had held compute fixed while varying model size and training tokens — but had used a suboptimal range: models were underfit relative to their size. When Hoffmann et al. reran the analysis correctly, the optimal token-to-parameter ratio was roughly 20:1, not the lower ratios implied by the earlier work. A model with N parameters should be trained on approximately 20N tokens to reach its compute-optimal point. This meant that most large models at the time of publication were substantially undertrained: they had been scaled in parameters without scaling data to match. Chinchilla, trained on four times more data than a comparably-sized model, matched or exceeded much larger models at the same compute cost. The finding shifted subsequent training runs toward smaller, better-trained models.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/2001.08361" rel="noopener noreferrer">
+                    <span class="paper-title">Scaling Laws for Neural Language Models</span>
+                </a>
+                <span class="paper-meta">Jared Kaplan, Sam McCandlish, Tom Henighan, et al. — OpenAI Technical Report, 2020 — arXiv:2001.08361</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2005.14165" rel="noopener noreferrer">
+                    <span class="paper-title">Language Models are Few-Shot Learners</span>
+                </a>
+                <span class="paper-meta">Tom Brown, Benjamin Mann, Nick Ryder, et al. — NeurIPS 2020 — arXiv:2005.14165</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2203.15556" rel="noopener noreferrer">
+                    <span class="paper-title">Training Compute-Optimal Large Language Models</span>
+                </a>
+                <span class="paper-meta">Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, et al. — NeurIPS 2022 — arXiv:2203.15556</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="05-pretraining.html">← Chapter 5: Pre-training &amp; Fine-tuning</a>
+        <a href="07-alignment.html">Chapter 7: Alignment →</a>
+    </nav>
+
+</div>
+</body>
+</html>

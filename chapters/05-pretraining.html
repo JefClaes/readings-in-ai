@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BERT and GPT-2 — how pre-training on unlabeled text and fine-tuning established the dominant paradigm in NLP.">
+    <title>5. Pre-training &amp; Fine-tuning — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 5</div>
+    <h1>Pre-training &amp; Fine-tuning</h1>
+
+    <p>The Transformer provided an architecture that scaled. The next question was how to train it. Prior to 2018, building a model for a specific NLP task meant training largely from scratch on labeled data for that task — sentiment labels, question-answer pairs, entailment annotations. Labeled data was expensive to collect, so models were small and narrow. Word embeddings might be pre-trained on unlabeled text, but the rest of the model was task-specific. Generalizing across tasks required training separate models.</p>
+
+    <p>Devlin et al.'s BERT (2018) demonstrated a different approach: pre-train a large Transformer on a self-supervised objective over massive unlabeled text, then fine-tune the entire model on a downstream task. The pre-training objective was masked language modeling (MLM): randomly mask 15% of input tokens and train the model to predict them from context. Because the model must use context from both directions to predict a masked token, it learns deeply bidirectional representations — an understanding of how each word relates to everything before and after it. A second objective, next sentence prediction, encouraged learning inter-sentence relationships. Fine-tuned on 11 NLP benchmarks — question answering, entailment, named entity recognition, and others — BERT set state-of-the-art on all of them simultaneously, often by large margins. The key insight was that most of the relevant knowledge about language could be obtained from unlabeled text alone.</p>
+
+    <p>OpenAI's GPT-2 (2019) explored a different architecture and objective. Where BERT is an encoder trained with a masked objective, GPT-2 is a decoder trained autoregressively: predict the next token from all preceding tokens. This produces a generative model rather than a representation model. The paper's central observation was about what emerged from scale and data diversity: a GPT-2 model trained on 40 gigabytes of web text demonstrated surprising capability at tasks it was never explicitly trained for — summarization, translation, question answering — when those tasks were framed as text completion. The model was not fine-tuned on these tasks at all. Capability was latent in the pre-trained weights and accessible through prompting.</p>
+
+    <p>BERT and GPT-2 represented a fork in architecture that persists today: bidirectional encoders (BERT-style) for classification, retrieval, and tasks that require understanding a complete input; autoregressive decoders (GPT-style) for generation. Both established the pre-training paradigm that defines modern language models — and raised a question that the next chapter addresses directly: what happens as models and datasets get larger?</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/1810.04805" rel="noopener noreferrer">
+                    <span class="paper-title">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</span>
+                </a>
+                <span class="paper-meta">Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova — NAACL 2019 — arXiv:1810.04805</span>
+            </li>
+            <li>
+                <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" rel="noopener noreferrer">
+                    <span class="paper-title">Language Models are Unsupervised Multitask Learners</span>
+                </a>
+                <span class="paper-meta">Alec Radford, Jeffrey Wu, Rewon Child, et al. — OpenAI Technical Report, 2019</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="04-attention-transformer.html">← Chapter 4: Attention &amp; the Transformer</a>
+        <a href="06-scaling-llms.html">Chapter 6: Scaling Laws &amp; the LLM Era →</a>
+    </nav>
+
+</div>
+</body>
+</html>
