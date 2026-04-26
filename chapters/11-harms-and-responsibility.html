@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Buolamwini & Gebru, Strubell et al., and Bender et al. on bias, environmental cost, and the structural risks of large language models.">
+    <title>11. Harms, Bias &amp; Responsibility — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 11</div>
+    <h1>Harms, Bias &amp; Responsibility</h1>
+
+    <p>Technical capability and responsible deployment are not the same thing. As AI systems moved from research settings into products and infrastructure, a body of empirical and analytical work made visible a set of harms that the rapid pace of development had tended to obscure. These papers did not argue against AI research; they argued that the costs and risks of that research were unevenly distributed and systematically underaccounted for.</p>
+
+    <p>Joy Buolamwini and Timnit Gebru's "Gender Shades" (2018) audited commercial face analysis systems from Microsoft, IBM, and Face++ for accuracy across demographic subgroups defined by gender and skin tone. They found that error rates on darker-skinned women were up to 34.7 percentage points higher than on lighter-skinned men. The disparity was not hypothetical: it arose from training datasets skewed toward lighter-skinned subjects, and it was present in systems actively sold and deployed in commercial and government contexts. The paper's methodological contribution was as significant as its findings — it operationalized intersectional demographic subgroups rather than relying on aggregate accuracy, exposing failures that aggregate benchmarks would have obscured. "Gender Shades" became a direct catalyst for revisions to commercial face analysis products and a model for algorithmic auditing as a practice.</p>
+
+    <p>Emma Strubell, Ananya Ganesh, and Andrew McCallum's "Energy and Policy Considerations for Deep Learning in NLP" (2019) measured the carbon emissions associated with training large NLP models. Training a single Transformer model with neural architecture search produced estimated CO₂ emissions of roughly 626,000 pounds — comparable to the lifetime emissions of five average American cars. The paper made a previously invisible cost legible: the environmental externality of compute-intensive research is real, scales with model size, and is unevenly borne, since computing infrastructure is concentrated in wealthy institutions while climate consequences are global. It prompted a sustained debate within the NLP community about whether efficiency should be treated as a first-class research objective alongside accuracy.</p>
+
+    <p>Emily Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell's "On the Dangers of Stochastic Parrots" (2021) synthesized these concerns into a structural argument against uncritical scaling. The paper identified three interlocking risks. First, environmental cost scales with model size, and the incentive structure of the field rewards capability gains without penalizing compute expenditure. Second, models trained on internet text encode the biases, stereotypes, and exclusions present in that text — and larger training sets do not necessarily mean more representative ones; they may simply mean more of the same distributions at greater scale. Third, the apparent fluency of language model output creates what the authors called an illusion of meaning: outputs are mistaken for understanding, making systems easier to anthropomorphize and harder to scrutinize critically. The paper was accepted to FAccT 2021; Timnit Gebru was dismissed from Google before it was published, in circumstances that became part of the field's history as much as the paper itself.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" rel="noopener noreferrer">
+                    <span class="paper-title">Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification</span>
+                </a>
+                <span class="paper-meta">Joy Buolamwini, Timnit Gebru — FAT* 2018</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/1906.02629" rel="noopener noreferrer">
+                    <span class="paper-title">Energy and Policy Considerations for Deep Learning in NLP</span>
+                </a>
+                <span class="paper-meta">Emma Strubell, Ananya Ganesh, Andrew McCallum — ACL 2019 — arXiv:1906.02629</span>
+            </li>
+            <li>
+                <a href="https://dl.acm.org/doi/10.1145/3442188.3445922" rel="noopener noreferrer">
+                    <span class="paper-title">On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?</span>
+                </a>
+                <span class="paper-meta">Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, Shmargaret Shmitchell — FAccT 2021</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="10-limits-of-understanding.html">← Chapter 10: What Language Models Don't Understand</a>
+        <span class="nav-placeholder"></span>
+    </nav>
+
+</div>
+</body>
+</html>

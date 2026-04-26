@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marcus and Bender & Koller on the gap between statistical pattern-matching and genuine language understanding.">
+    <title>10. What Language Models Don't Understand — Readings in AI</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="../index.html">Readings in Artificial Intelligence</a>
+    </header>
+
+    <div class="chapter-number">Chapter 10</div>
+    <h1>What Language Models Don't Understand</h1>
+
+    <p>The question of whether neural networks understand, or merely approximate understanding through statistical pattern-matching, predates the current era of large language models. Two papers, written before transformers dominated the field, define the terms of this debate most precisely — and their arguments have not been resolved by subsequent scaling.</p>
+
+    <p>Gary Marcus's "Deep Learning: A Critical Appraisal" (2018) catalogued ten specific limitations of deep learning as it then existed: fragility under distribution shift, poor sample efficiency, difficulty with compositional generalization, absence of causal reasoning, and poor integration with structured prior knowledge, among others. The paper did not argue that deep learning had failed — it argued that the field had overclaimed, and that the remaining gaps were unlikely to close through scale and data alone. Marcus had made related arguments during earlier periods of AI; what distinguished this paper was its engagement with specific empirical results rather than purely philosophical objection. It was written at the height of enthusiasm following AlphaGo and the first wave of large-scale NLP models, and it staked a position that the mainstream found impolitic: that the field had systematically underweighted the limitations of its dominant technique.</p>
+
+    <p>Emily Bender and Alexander Koller's "Climbing towards NLU" (2020) offered a more fundamental critique. They drew a distinction between form — the observable linguistic signal, the sequence of tokens a model processes — and meaning — the relation between a linguistic expression and something outside language: an intent, a state of the world, a communicative situation. A model trained on text learns distributional regularities over form. It cannot, by this argument, learn meaning, because meaning requires grounding in the world that text alone does not provide. The paper's thought experiment is now widely known: imagine two people stranded on separate islands who communicate only by text transmitted over a radio. A third party intercepts the signal and, through extended exposure, learns to participate in the exchange. Such an entity might achieve high fluency over form without any access to the referents that give those forms meaning. The argument was not primarily empirical — it was conceptual, and it set a precise criterion that language model capabilities could be evaluated against.</p>
+
+    <p>Together these papers did not predict the specific capabilities that would emerge as models scaled to hundreds of billions of parameters. But they identified a specific gap — between linguistic competence and understanding — that remains contested. Whether scaling has narrowed this gap or merely made it harder to see is one of the genuinely open questions in the field.</p>
+
+    <div class="papers">
+        <h2>Papers</h2>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/1801.00631" rel="noopener noreferrer">
+                    <span class="paper-title">Deep Learning: A Critical Appraisal</span>
+                </a>
+                <span class="paper-meta">Gary Marcus — arXiv 2018 — arXiv:1801.00631</span>
+            </li>
+            <li>
+                <a href="https://aclanthology.org/2020.acl-main.463" rel="noopener noreferrer">
+                    <span class="paper-title">Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data</span>
+                </a>
+                <span class="paper-meta">Emily M. Bender, Alexander Koller — ACL 2020</span>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="chapter-nav">
+        <a href="09-agentic-ai.html">← Chapter 9: Agentic AI</a>
+        <a href="11-harms-and-responsibility.html">Chapter 11: Harms, Bias &amp; Responsibility →</a>
+    </nav>
+
+</div>
+</body>
+</html>
