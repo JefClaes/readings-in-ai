@@ -4,15 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A curated reading guide to foundational AI papers, hosted on GitHub Pages. Modelled after [redbook.io](https://www.redbook.io/). No build step, no framework — plain HTML and CSS.
+A curated reading guide to foundational and critical AI papers, hosted on GitHub Pages. Modelled after [redbook.io](https://www.redbook.io/). No build step, no framework — plain HTML and CSS.
 
 ## Structure
 
 ```
-index.html          # Home page with table of contents
+index.html          # Home page with table of contents (two sections: Fundamentals, Critiques)
 style.css           # Shared styles (all pages link to this)
 .nojekyll           # Prevents GitHub Pages from running Jekyll
 chapters/
+  # Fundamentals
   01-perceptron-backprop.html
   02-deep-learning.html
   03-word-representations.html
@@ -22,6 +23,9 @@ chapters/
   07-alignment.html
   08-computer-vision.html
   09-agentic-ai.html
+  # Critiques
+  10-limits-of-understanding.html
+  11-harms-and-responsibility.html
 ```
 
 ## Conventions
