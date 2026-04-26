@@ -28,7 +28,7 @@ chapters/
 
 - Chapter pages are in `chapters/` and reference `../style.css` and `../index.html`.
 - Each chapter has: a `div.chapter-number`, an `h1` title, 3–4 paragraphs of editorial commentary, a `div.papers` section with a `ul.paper-list`, and a `nav.chapter-nav` with prev/next links.
-- Paper links use arXiv (`https://arxiv.org/abs/[ID]`) where available. Older papers without arXiv versions are cited without a link.
+- Every paper must have a link. Use arXiv (`https://arxiv.org/abs/[ID]`) where available; for older papers without arXiv, find a stable alternative (author-hosted PDF, Semantic Scholar, official proceedings).
 - Editorial tone is neutral and encyclopedic — no first-person, no promotional language.
 - All external links use `rel="noopener noreferrer"`.
 
