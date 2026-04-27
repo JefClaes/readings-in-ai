@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Marcus and Bender & Koller on the gap between statistical pattern-matching and genuine language understanding.">
-    <title>10. What Language Models Don't Understand — Readings in AI</title>
+    <meta name="description" content="Bender and Koller on form versus meaning, Marcus on empirical limitations, and HELM and BIG-bench on the difficulty of evaluating capability at scale.">
+    <title>10. Evaluation and Limits — Readings in AI</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -15,18 +15,28 @@
     </header>
 
     <div class="chapter-number">Chapter 10</div>
-    <h1>What Language Models Don't Understand</h1>
+    <h1>Evaluation and Limits</h1>
 
-    <p>The question of whether neural networks understand, or merely approximate understanding through statistical pattern-matching, predates the current era of large language models. Two papers, written before transformers dominated the field, define the terms of this debate most precisely — and their arguments have not been resolved by subsequent scaling.</p>
+    <p>As language model capabilities expanded, so did the difficulty of measuring them. Benchmarks developed to track progress tended to saturate quickly — models achieved near-human performance on tasks that had been considered representative of intelligence — without resolving whether they understood anything or had learned to exploit statistical regularities in test distributions. The measurement problem is not incidental: what the field believes about model capabilities depends entirely on how it chooses to evaluate them.</p>
 
-    <p>Gary Marcus's "Deep Learning: A Critical Appraisal" (2018) catalogued ten specific limitations of deep learning as it then existed: fragility under distribution shift, poor sample efficiency, difficulty with compositional generalization, absence of causal reasoning, and poor integration with structured prior knowledge, among others. The paper did not argue that deep learning had failed — it argued that the field had overclaimed, and that the remaining gaps were unlikely to close through scale and data alone. Marcus had made related arguments during earlier periods of AI; what distinguished this paper was its engagement with specific empirical results rather than purely philosophical objection. It was written at the height of enthusiasm following AlphaGo and the first wave of large-scale NLP models, and it staked a position that the mainstream found impolitic: that the field had systematically underweighted the limitations of its dominant technique.</p>
+    <p>Emily Bender and Alexander Koller's "Climbing Towards NLU" (2020) drew a precise distinction between form — the observable linguistic signal, the sequence of tokens a model processes — and meaning — the relation between a linguistic expression and something outside language: a communicative intent, a state of the world. A model trained on text learns distributional regularities over form. It cannot, by this argument, learn meaning, because meaning requires grounding in the world that text alone does not provide. The paper's thought experiment is widely cited: imagine an entity that intercepts transmissions between two people communicating via radio, learns to participate fluently in the exchange, but has no access to the referents that give the transmitted forms meaning. Such an entity could achieve near-perfect linguistic form without any access to meaning. This criterion — not fluency but grounding — provides a precise standard against which to evaluate progress claims, and it has not been resolved by subsequent scaling.</p>
 
-    <p>Emily Bender and Alexander Koller's "Climbing towards NLU" (2020) offered a more fundamental critique. They drew a distinction between form — the observable linguistic signal, the sequence of tokens a model processes — and meaning — the relation between a linguistic expression and something outside language: an intent, a state of the world, a communicative situation. A model trained on text learns distributional regularities over form. It cannot, by this argument, learn meaning, because meaning requires grounding in the world that text alone does not provide. The paper's thought experiment is now widely known: imagine two people stranded on separate islands who communicate only by text transmitted over a radio. A third party intercepts the signal and, through extended exposure, learns to participate in the exchange. Such an entity might achieve high fluency over form without any access to the referents that give those forms meaning. The argument was not primarily empirical — it was conceptual, and it set a precise criterion that language model capabilities could be evaluated against.</p>
+    <p>Gary Marcus's "Deep Learning: A Critical Appraisal" (2018) approached evaluation from a different angle. Writing at the height of enthusiasm following AlphaGo and the first wave of large-scale NLP models, Marcus catalogued specific empirical limitations: fragility under distribution shift, poor sample efficiency, weak compositional generalization, the absence of causal reasoning, and difficulty integrating prior knowledge. The paper did not argue that deep learning had failed — it argued that the field had overclaimed, and that remaining gaps were unlikely to close through scale and data alone. As a forward-looking evaluation of the paradigm's limits, it established a checklist that subsequent research could be measured against.</p>
 
-    <p>Together these papers did not predict the specific capabilities that would emerge as models scaled to hundreds of billions of parameters. But they identified a specific gap — between linguistic competence and understanding — that remains contested. Whether scaling has narrowed this gap or merely made it harder to see is one of the genuinely open questions in the field.</p>
+    <p>The difficulty of evaluation at scale is documented in the empirical literature. Liang et al.'s HELM (2022) assembled a unified evaluation across many models and scenarios, providing a structured framework for comparative assessment across dimensions including accuracy, calibration, robustness, fairness, and efficiency. Srivastava et al.'s BIG-bench (2022) collected hundreds of tasks designed to probe specific capabilities and limitations — particularly those not represented in existing benchmarks. Together, these works reflect a sustained effort to move evaluation beyond single-task accuracy toward structured assessment of the diverse capabilities and failure modes of large language models — and a recognition that the choice of what to measure shapes the conclusions drawn.</p>
 
     <div class="papers">
         <h2>Papers</h2>
+        <h3>Core</h3>
+        <ul class="paper-list">
+            <li>
+                <a href="../papers/10-climbing-nlu-bender-2020.pdf" rel="noopener noreferrer">
+                    <span class="paper-title">Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data</span>
+                </a>
+                <span class="paper-meta">Emily M. Bender, Alexander Koller — ACL 2020</span>
+            </li>
+        </ul>
+        <h3>Extended</h3>
         <ul class="paper-list">
             <li>
                 <a href="../papers/10-critical-appraisal-marcus-2018.pdf" rel="noopener noreferrer">
@@ -35,16 +45,22 @@
                 <span class="paper-meta">Gary Marcus — arXiv 2018 — arXiv:1801.00631</span>
             </li>
             <li>
-                <a href="../papers/10-climbing-nlu-bender-2020.pdf" rel="noopener noreferrer">
-                    <span class="paper-title">Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data</span>
+                <a href="https://arxiv.org/abs/2211.09110" rel="noopener noreferrer">
+                    <span class="paper-title">Holistic Evaluation of Language Models</span>
                 </a>
-                <span class="paper-meta">Emily M. Bender, Alexander Koller — ACL 2020</span>
+                <span class="paper-meta">Percy Liang, Rishi Bommasani, Tony Lee, et al. — TMLR 2023 — arXiv:2211.09110</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2206.04615" rel="noopener noreferrer">
+                    <span class="paper-title">Beyond the Imitation Game: Quantifying and Extrapolating the Capabilities of Language Models</span>
+                </a>
+                <span class="paper-meta">Aarohi Srivastava, Abhinav Rastogi, Abhishek Rao, et al. — TMLR 2023 — arXiv:2206.04615</span>
             </li>
         </ul>
     </div>
 
     <nav class="chapter-nav">
-        <a href="09-agentic-ai.html">← Chapter 9: Agentic AI</a>
+        <a href="09-agentic-ai.html">← Chapter 9: Vision and Multimodality</a>
         <a href="11-harms-and-responsibility.html">Chapter 11: Harms, Bias &amp; Responsibility →</a>
     </nav>
 

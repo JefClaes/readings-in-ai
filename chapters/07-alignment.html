@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="InstructGPT and RLHF — how reinforcement learning from human feedback made large language models into useful assistants.">
+    <meta name="description" content="Christiano et al.'s RLHF framework and how instruction tuning — via human feedback, AI feedback, and direct preference optimization — bridges capability and usefulness.">
     <title>7. Alignment — Readings in AI</title>
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -17,18 +17,26 @@
     <div class="chapter-number">Chapter 7</div>
     <h1>Alignment</h1>
 
-    <p>A language model trained to predict the next token is not trained to be a useful assistant. It is trained to be a good predictor of human-generated text — which includes text that is harmful, contradictory, and unhelpful. When prompted to answer a question, a well-trained language model may produce a plausible-sounding continuation of a question-answering format rather than a correct answer. When asked to explain something, it may produce fluent but confidently wrong text. The model is optimizing for distributional fidelity to its training corpus, not for helpfulness to a user.</p>
+    <p>A language model trained to predict the next token is not trained to be helpful. It is trained to model the distribution of human-generated text — which includes harmful content, confident errors, and outputs that fulfill the letter of a prompt while ignoring its intent. The gap between what a model is trained to do and what its developers and users want it to do is the alignment problem at the scale of language models.</p>
 
-    <p>The gap between predicting text and following instructions became apparent as GPT-3-class models were deployed. Models would ignore instructions, generate harmful content when prompted in certain ways, and confidently assert falsehoods. Scaling made the models more capable but did not automatically make them more aligned with what users wanted. A different kind of training was needed.</p>
+    <p>Christiano, Leike, Brown, Martic, Legg, and Amodei's "Deep Reinforcement Learning from Human Preferences" (2017) established the conceptual foundation for what is now called reinforcement learning from human feedback (RLHF). The paper addressed a general problem: how do you train a reinforcement learning agent to maximize a goal that humans can recognize but cannot easily specify as a reward function? Their solution was to infer the reward signal from human preferences expressed as pairwise comparisons. Given two candidate behaviors, a human rater selects the one they prefer; a reward model is trained to predict these preferences; and the agent is trained with RL to maximize the learned reward. This separates the problem of specifying what is wanted from the problem of optimizing for it — a separation that proves essential when the target behavior is complex and contextual.</p>
 
-    <p>Ouyang et al.'s InstructGPT (2022) introduced a three-stage approach now known as RLHF — reinforcement learning from human feedback. First, human contractors wrote demonstrations of desired behavior for a range of prompts; the pre-trained model was fine-tuned on these via supervised learning. Second, pairs of model outputs for the same prompt were collected and human raters ranked them by quality; these preferences were used to train a reward model that predicted which outputs humans would prefer. Third, the supervised fine-tuned model was further trained using PPO — a reinforcement learning algorithm — with the reward model as the objective, subject to a KL-divergence penalty that prevented the policy from drifting too far from the supervised fine-tuned baseline.</p>
+    <p>Applied to language models at production scale, Ouyang et al.'s InstructGPT (2022) demonstrated that this framework makes models substantially more useful. Human contractors ranked pairs of model outputs by quality across a broad prompt distribution; the reward model was trained on these rankings; and a GPT-3-scale model was fine-tuned using proximal policy optimization with the learned reward. Human raters substantially preferred InstructGPT outputs to those of the base GPT-3 model — including a 1.3 billion parameter InstructGPT over the 175 billion parameter base — establishing that alignment training is a more efficient path to useful outputs than raw scale. The result also found that aligned models were less likely to generate harmful content and more likely to acknowledge uncertainty.</p>
 
-    <p>The results were striking in two ways. Human raters substantially preferred InstructGPT outputs over those of the base GPT-3 model — across helpfulness, truthfulness, and harmlessness. More surprisingly, a 1.3 billion parameter InstructGPT model was preferred over the 175 billion parameter base GPT-3, despite being over 100 times smaller. Alignment training proved more efficient than raw scale for producing outputs that humans found useful. The paper also found that InstructGPT was less likely to generate harmful content and more likely to acknowledge uncertainty, though it remained imperfect on both counts.</p>
-
-    <p>RLHF has since become a standard component of large language model training. Every widely deployed assistant model uses some variant of this pipeline. The alignment problem it addresses — the gap between what a model is trained to do and what its developers and users want it to do — remains an active area of research, with ongoing work on reward model reliability, specification of preferences, and scalable oversight.</p>
+    <p>Two subsequent approaches challenged the dependence on human raters and reinforcement learning as the mechanism. Bai et al.'s Constitutional AI (2022) proposed training models to critique and revise their own outputs according to a set of stated principles, using another language model as the feedback provider rather than humans — substituting AI feedback for human feedback and enabling scaling of the oversight process. Rafailov et al.'s Direct Preference Optimization (2023) reframed the RLHF objective entirely: by deriving a closed-form relationship between the optimal policy and the reward function, DPO eliminates the need to train an explicit reward model and run RL at all, instead fine-tuning directly on preference data with a supervised objective. The progression from Christiano through InstructGPT, Constitutional AI, and DPO represents a field iterating on both the mechanism of alignment and the source of feedback — from human pairwise comparisons, to AI-generated critiques, to direct optimization against expressed preferences.</p>
 
     <div class="papers">
         <h2>Papers</h2>
+        <h3>Core</h3>
+        <ul class="paper-list">
+            <li>
+                <a href="https://arxiv.org/abs/1706.03741" rel="noopener noreferrer">
+                    <span class="paper-title">Deep Reinforcement Learning from Human Preferences</span>
+                </a>
+                <span class="paper-meta">Paul Christiano, Jan Leike, Tom Brown, et al. — NeurIPS 2017 — arXiv:1706.03741</span>
+            </li>
+        </ul>
+        <h3>Extended</h3>
         <ul class="paper-list">
             <li>
                 <a href="../papers/07-instructgpt-ouyang-2022.pdf" rel="noopener noreferrer">
@@ -36,12 +44,24 @@
                 </a>
                 <span class="paper-meta">Long Ouyang, Jeffrey Wu, Xu Jiang, et al. — NeurIPS 2022 — arXiv:2203.02155</span>
             </li>
+            <li>
+                <a href="https://arxiv.org/abs/2212.08073" rel="noopener noreferrer">
+                    <span class="paper-title">Constitutional AI: Harmlessness from AI Feedback</span>
+                </a>
+                <span class="paper-meta">Yuntao Bai, Saurav Kadavath, Sandipan Kundu, et al. — arXiv 2022 — arXiv:2212.08073</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2305.18290" rel="noopener noreferrer">
+                    <span class="paper-title">Direct Preference Optimization: Your Language Model is Secretly a Reward Model</span>
+                </a>
+                <span class="paper-meta">Rafael Rafailov, Archit Sharma, Eric Mitchell, et al. — NeurIPS 2023 — arXiv:2305.18290</span>
+            </li>
         </ul>
     </div>
 
     <nav class="chapter-nav">
         <a href="06-scaling-llms.html">← Chapter 6: Scaling Laws &amp; the LLM Era</a>
-        <a href="08-computer-vision.html">Chapter 8: Computer Vision at Scale →</a>
+        <a href="08-computer-vision.html">Chapter 8: Retrieval and Tool Use →</a>
     </nav>
 
 </div>

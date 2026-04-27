@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Chain-of-Thought and ReAct — the prompting techniques and reasoning-action loops at the foundation of modern AI agents.">
-    <title>9. Agentic AI — Readings in AI</title>
+    <meta name="description" content="ViT, CLIP, DDPM, and Flamingo — how Transformers extended to vision, how vision and language were aligned, and how multimodal assistants were built.">
+    <title>9. Vision and Multimodality — Readings in AI</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -15,35 +15,59 @@
     </header>
 
     <div class="chapter-number">Chapter 9</div>
-    <h1>Agentic AI</h1>
+    <h1>Vision and Multimodality</h1>
 
-    <p>A language model takes a context and produces a continuation. To use this as a reasoning system — something that can solve multi-step problems reliably — requires more than a capable model. It requires prompting strategies that elicit structured reasoning rather than direct pattern completion. Wei et al.'s chain-of-thought prompting (2022) demonstrated that prompting a model to produce intermediate reasoning steps before a final answer substantially improved performance on tasks requiring multi-step reasoning: arithmetic word problems, commonsense reasoning, symbolic manipulation. The improvement was not available through fine-tuning on additional examples alone — it required the model to externalize its reasoning process as text. Critically, chain-of-thought prompting produced gains primarily in models above approximately 100 billion parameters. Smaller models did not reliably benefit, suggesting that the capacity for explicit intermediate reasoning is an emergent capability dependent on scale. The finding implied that large language models have latent reasoning ability that is accessible through the structure of the prompt rather than through the model's weights alone.</p>
+    <p>By 2020, the Transformer had demonstrated strong results in language. The question was whether the same architecture could replace convolutional networks in vision, or whether the inductive biases of CNNs — local connectivity, translation equivariance — were genuinely necessary for image understanding rather than merely convenient. Dosovitskiy, Beyer, Kolesnikov, Weissenborn, Zhai, Unterthiner, Dehghani, Minderer, Heigold, Gelly, Uszkoreit, and Houlsby's Vision Transformer (ViT, 2021) answered this. Images were divided into non-overlapping 16×16 pixel patches, each patch linearly embedded into a vector, and the resulting sequence of patch embeddings fed into a standard Transformer encoder with learned positional embeddings. On small datasets, ViT underperformed CNNs — the lack of local inductive bias meant more data was needed to learn what CNNs assumed by construction. But trained on sufficiently large datasets, ViT matched and then exceeded CNN performance. The finding established that convolutional inductive biases are a sample-efficiency advantage, not a fundamental one, and unified the dominant architecture across modalities.</p>
 
-    <p>Chain-of-thought addresses the quality of reasoning but not the scope: a model that reasons well about what to do still cannot do anything. Its context is static — it contains only what was provided at the start. Yao et al.'s ReAct (2023) extended the chain-of-thought pattern with actions. Rather than generating a complete reasoning trace followed by a final answer, a ReAct agent interleaves reasoning steps and actions within a single generation: a "thought" — a natural language reasoning step — followed by an "action" (a search query, a lookup, a code execution), an observation of the result, then another thought, and so on. The agent's reasoning is grounded in external information retrieved during the task rather than relying entirely on information stored in the model's weights. ReAct substantially outperformed both chain-of-thought-only and action-only baselines on knowledge-intensive tasks and enabled interpretable failure diagnosis: when the agent made an error, the reasoning trace showed which step went wrong.</p>
+    <p>Radford, Kim, Hallacy, Ramesh, Goh, Agarwal, Sastry, Askell, Mishkin, Clark, Krueger, and Sutskever's CLIP (2021) showed that vision and language representations could be aligned in a shared embedding space using the natural pairing of images with their captions. Rather than training on manually annotated image categories, CLIP trained a vision encoder and a text encoder jointly on 400 million image-text pairs collected from the internet, using contrastive learning: matching image-text pairs were pushed together in the shared embedding space while non-matching pairs were pushed apart. The resulting model supports zero-shot image classification — comparing an image's embedding to text embeddings of candidate class descriptions — without any labeled examples for those specific classes. CLIP embeddings became a standard component in subsequent multimodal systems.</p>
 
-    <p>Together, these two papers define the scaffold underlying modern AI agents. The pattern is: decompose the task into steps, reason about the current state, select and execute an action, observe the result, update the reasoning, and repeat. Contemporary coding assistants, research agents, and workflow automation systems are largely elaborations of this loop — extended with longer contexts, more capable tools, better base models, and infrastructure for managing state across many steps. The loop itself, and the insight that reasoning and acting should be tightly coupled rather than separated, comes from these papers.</p>
+    <p>The bridge from static visual representations to interactive multimodal language models came through architectures that connected vision encoders to language model decoders. Alayrac et al.'s Flamingo (2022) showed how to attach a vision encoder to a frozen, pretrained language model using cross-attention layers, enabling the language model to condition its outputs on visual inputs without retraining. Flamingo demonstrated strong few-shot multimodal in-context learning: given a handful of image-text examples in the prompt, the model performed new vision-language tasks without any weight updates. This architectural pattern — a pretrained language model as the reasoning backbone, with a separately trained visual front-end connected through cross-attention — underlies the multimodal assistants that followed.</p>
+
+    <p>Image generation follows a different trajectory. Ho, Jain, and Abbeel's DDPM (2020) established diffusion models on firmer theoretical ground than the generative adversarial networks that preceded them. The generative model is defined by two processes: a forward process that adds Gaussian noise to an image over many steps until it becomes indistinguishable from pure noise, and a reverse process that learns to denoise one step at a time. Training the reverse process reduces to predicting the noise added at each step — a stable regression objective. DDPM produced higher quality and more diverse samples than contemporary GANs. Rombach et al.'s Latent Diffusion (2022) extended this by operating in a compressed latent space rather than pixel space, enabling high-resolution generation at dramatically reduced compute cost. Conditioned on text embeddings, latent diffusion models became the basis for text-to-image generation systems.</p>
 
     <div class="papers">
         <h2>Papers</h2>
+        <h3>Core</h3>
         <ul class="paper-list">
             <li>
-                <a href="../papers/09-chain-of-thought-wei-2022.pdf" rel="noopener noreferrer">
-                    <span class="paper-title">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</span>
+                <a href="../papers/08-vit-dosovitskiy-2020.pdf" rel="noopener noreferrer">
+                    <span class="paper-title">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</span>
                 </a>
-                <span class="paper-meta">Jason Wei, Xuezhi Wang, Dale Schuurmans, et al. — NeurIPS 2022 — arXiv:2201.11903</span>
+                <span class="paper-meta">Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, et al. — ICLR 2021 — arXiv:2010.11929</span>
+            </li>
+        </ul>
+        <h3>Extended</h3>
+        <ul class="paper-list">
+            <li>
+                <a href="../papers/08-clip-radford-2021.pdf" rel="noopener noreferrer">
+                    <span class="paper-title">Learning Transferable Visual Models From Natural Language Supervision</span>
+                </a>
+                <span class="paper-meta">Alec Radford, Jong Wook Kim, Chris Hallacy, et al. — ICML 2021 — arXiv:2103.00020</span>
             </li>
             <li>
-                <a href="../papers/09-react-yao-2022.pdf" rel="noopener noreferrer">
-                    <span class="paper-title">ReAct: Synergizing Reasoning and Acting in Language Models</span>
+                <a href="../papers/08-ddpm-ho-2020.pdf" rel="noopener noreferrer">
+                    <span class="paper-title">Denoising Diffusion Probabilistic Models</span>
                 </a>
-                <span class="paper-meta">Shunyu Yao, Jeffrey Zhao, Dian Yu, et al. — ICLR 2023 — arXiv:2210.03629</span>
+                <span class="paper-meta">Jonathan Ho, Ajay Jain, Pieter Abbeel — NeurIPS 2020 — arXiv:2006.11239</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2204.14198" rel="noopener noreferrer">
+                    <span class="paper-title">Flamingo: a Visual Language Model for Few-Shot Learning</span>
+                </a>
+                <span class="paper-meta">Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, et al. — NeurIPS 2022 — arXiv:2204.14198</span>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/2112.10752" rel="noopener noreferrer">
+                    <span class="paper-title">High-Resolution Image Synthesis with Latent Diffusion Models</span>
+                </a>
+                <span class="paper-meta">Robin Rombach, Andreas Blattmann, Dominik Lorenz, et al. — CVPR 2022 — arXiv:2112.10752</span>
             </li>
         </ul>
     </div>
 
     <nav class="chapter-nav">
-        <a href="08-computer-vision.html">← Chapter 8: Computer Vision at Scale</a>
-        <a href="10-limits-of-understanding.html">Chapter 10: What Language Models Don't Understand →</a>
+        <a href="08-computer-vision.html">← Chapter 8: Retrieval and Tool Use</a>
+        <a href="10-limits-of-understanding.html">Chapter 10: Evaluation and Limits →</a>
     </nav>
 
 </div>
